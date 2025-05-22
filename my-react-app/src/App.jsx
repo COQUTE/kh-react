@@ -4,6 +4,8 @@ import Exam2 from "./components/Exam2.jsx";
 import Exam3 from "./components/Exam3.jsx";
 import Exam4 from "./components/Exam4.jsx";
 import Exam5 from "./components/Exam5.jsx";
+import Exam6 from "./components/Exam6.jsx";
+import Exam7 from "./components/Exam7.jsx";
 
 function App() {
   // 상태(state)
@@ -30,7 +32,9 @@ function App() {
 
     // <Exam3/>
     // <Exam4/>
-    <Exam5/>
+    // <Exam5/>
+    // <Exam6/>
+    <Exam7/>
   );
 }
 
