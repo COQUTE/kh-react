@@ -75,13 +75,34 @@ export const AuthProvider = ({ children }) => {
       location.href = "/";
     }, 60 * 60 * 1000); // 1시간 후
   };
+  
+  // 로그아웃 처리 함수
+  const handleLogout = async () => {
+    try {
+      const resp = await axios.get("http://localhost/admin/logout");
+      
+      console.log(resp);
+      
+      if(resp.status === 200) {
+        localStorage.removeItem('userData');
+        setUser(null);
+      }
+      // if/else 가 필요없는 이유
+      // 서버 에러시 catch를 타기 때문에
+      
+    } catch (error) {
+      console.log("로그아웃 중 문제발생 : ", error);
+    }
+    
+  }
 
   // 자식(하위) 컴포넌트에게 전달할 데이터를 하나로 묶기
   const globalState = {
     user,
     changeInputEmail,
     changeInputPw,
-    handleLogin
+    handleLogin,
+    handleLogout
   }
 
   return (
