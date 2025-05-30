@@ -91,26 +91,36 @@ export default function Statistics() {
   } else {
     return (
         <div>
+          <section className="statistics-section">
           <h2>신규 가입 회원 ({userDataList.length}명)</h2>
-          <h3>[7일 이내 가입 회원]</h3>
-          <table border="1">
-            <tbody>
-              <tr>
-                <th>회원번호</th>
-                <th>이메일</th>
-                <th>닉네임</th>
-                <th>가입일</th>
-              </tr>
-                {userDataList.map((userData, idx) =>
-                  <tr key={idx}>
-                    <td>{userData.memberNo}</td>
-                    <td>{userData.memberEmail}</td>
-                    <td>{userData.memberNickname}</td>
-                    <td>{userData.enrollDate}</td>
-                  </tr>
-                )}
-            </tbody>
-          </table>
+            {
+              userDataList.length === 0 ? (
+                <p>최근 일주일 내에 회원가입한 사람이 없습니다.</p>
+              ) : (
+                <>
+                  <h3>[7일 이내 가입 회원]</h3>
+                    <table border="1">
+                      <tbody>
+                        <tr>
+                          <th>회원번호</th>
+                          <th>이메일</th>
+                          <th>닉네임</th>
+                          <th>가입일</th>
+                        </tr>
+                        {userDataList.map((userData, idx) =>
+                          <tr key={idx}>
+                              <td>{userData.memberNo}</td>
+                              <td>{userData.memberEmail}</td>
+                              <td>{userData.memberNickname}</td>
+                              <td>{userData.enrollDate}</td>
+                          </tr>
+                        )}
+                    </tbody>
+                  </table>
+                </>
+              )
+            }
+          </section>
           <section className="statistics-section">
             <h2>가장 조회수 많은 게시글</h2>
             <p>게시판 종류 : {readCountData.boardName}</p>
