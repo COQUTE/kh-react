@@ -1,10 +1,10 @@
-import React, {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {axiosApi} from "../api/axiosAPI.js";
 
 export default function Restore() {
-  const [withdrawnMembers, setWithdrawnMembers] = React.useState(null); // 탈퇴 회원 목록
-  const [deleteBoards, setDeleteBoards] = React.useState(null); // 삭제 게시글 목록
-  const [isLoading, setIsLoading] = React.useState(true); // 로딩 상태
+  const [withdrawnMembers, setWithdrawnMembers] = useState(null); // 탈퇴 회원 목록
+  const [deleteBoards, setDeleteBoards] = useState(null); // 삭제 게시글 목록
+  const [isLoading, setIsLoading] = useState(true); // 로딩 상태
   
   // 탈퇴한 회원 목록 조회용 함수
   const getWithdrawnMemberList = async () => {
