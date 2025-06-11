@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @Slf4j
 @RestController
 @RequestMapping("auth")
@@ -30,6 +32,8 @@ public class AuthController {
         // email, password (LoginRequest) -> accessToken, nickname (LoginResponse)
         
         // 1. 로그인 처리 및 토큰 생성 (서비스에서 Access + Refresh 생성 및 DB 저장)
+        Map<String, Object> map = authService.login(request);
+        LoginResponse loginResponse = (LoginResponse) map.get("loginResponse");
         
         // 2. Refresh Token 쿠키로 전달(보안상 절대 Body에 보내면 안됨(XSS 공격에 취약)
         

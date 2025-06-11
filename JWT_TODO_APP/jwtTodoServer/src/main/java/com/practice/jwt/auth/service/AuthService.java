@@ -1,5 +1,10 @@
 package com.practice.jwt.auth.service;
 
-public interface AuthService {
+import com.practice.jwt.auth.dto.LoginRequest;
 
+import java.util.Map;
+
+public interface AuthService {
+    
+    Map<String, Object> login(LoginRequest request);
 }
