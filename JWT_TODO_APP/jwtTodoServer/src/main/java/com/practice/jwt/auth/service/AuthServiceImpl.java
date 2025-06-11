@@ -1,6 +1,7 @@
 package com.practice.jwt.auth.service;
 
 import com.practice.jwt.auth.dto.LoginRequest;
+import com.practice.jwt.auth.dto.LoginResponse;
 import com.practice.jwt.auth.entity.RefreshToken;
 import com.practice.jwt.auth.repository.RefreshTokenRepository;
 import com.practice.jwt.member.entity.Member;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 @Service
@@ -69,6 +71,32 @@ public class AuthServiceImpl implements AuthService {
             // save() 호출하지 않아도 됨, 이미 영속 상태라 변경 감지됨
         }
         
-        return ;
+        Map<String, Object> map = new HashMap<>();
+        map.put("refreshToken", refreshToken);
+        map.put("loginResponse", new LoginResponse(accessToken, member.getName()));
+        
+        return map;
+    }
+    
+    @Override
+    public Member findMemberByEmail(String userEmail) {
+        return memberRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new RuntimeException("존재하지 않는 이메일입니다."));
+    }
+    
+    @Override
+    public String findRefreshToken(long memberNo) {
+        return refreshTokenRepository
+                .findById(memberNo) // Optional<RefreshToken> 객체를 반환함 (해당 회원의 토큰이 있을 수도, 없을 수도 있음)
+                .map(RefreshToken::getToken) // Optional<RefreshToken>을 Optional<String>으로 변환 (토큰 문자열만 추출)
+                .orElse(null); // 값이 없을 경우 null 반환
+    }
+    
+    @Override
+    public LocalDateTime findRefreshTokenExpiration(Long memberNo) {
+        return refreshTokenRepository
+                .findById(memberNo)
+                .map(RefreshToken::getExpirationDate)
+                .orElse(null);
     }
 }
